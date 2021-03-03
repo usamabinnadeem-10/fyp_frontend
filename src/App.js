@@ -1,15 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <code>Vehicle Re-ID</code>
-        </p>
-      </header>
+    <div
+      style={{
+        flexDirection: "column",
+        textAlign: "center",
+      }}
+    >
+      <h1>Vehicle Re-ID</h1>
     </div>
   );
 }
