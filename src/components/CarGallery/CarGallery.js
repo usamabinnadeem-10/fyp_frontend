@@ -6,7 +6,7 @@ function CarGallery ({imagesList}) {
   const history = useHistory();
 
   useEffect(()=>{
-    if(!imagesList.names){
+    if(imagesList && (!imagesList.names)){
       history.push('/');
     }
     setReceiveImagesList(imagesList);
