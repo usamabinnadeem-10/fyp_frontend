@@ -25,7 +25,7 @@ export default function UploadImage(props) {
         reader.readAsDataURL(file);
         reader.onload = async function () {
             setActiveLoader(true);
-            const images = await axios.post("http://localhost:8000/api/query",{
+            const images = await axios.post("http://localhost:8000/api/query/",{
                     "query":reader.result
                 });
             props.handleImageSet(images.data.result);
