@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { useHistory } from "react-router-dom";
-import { Button, Icon, Loader, Segment } from 'semantic-ui-react'
+import { Button, Dimmer, Icon, Loader, Segment } from 'semantic-ui-react'
 import axios from 'axios';
 
 import './UploadImage.css';
@@ -19,17 +19,18 @@ export default function UploadImage(props) {
 
     }
 
+
     const toBase64 = (file) =>{
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async function () {
-            setActiveLoader(false);
-            props.handleImageBase64(reader.result);
-            history.push('/checking');
+            setActiveLoader(true);
             const images = await axios.post("http://localhost:8000/api/query",{
                     "query":reader.result
                 });
-            props.handleImageSet(images.data.result)
+            props.handleImageSet(images.data.result);
+            history.push('/locatedCar')
+            setActiveLoader(false); 
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
@@ -44,21 +45,26 @@ export default function UploadImage(props) {
 
     return (
         <div className="row upload-image-page">
-            <Segment basic>
-                    <Loader  active={activeLoader}/>
+            <Segment basic className='upload-image-page'>
+                <Dimmer active={activeLoader} inverted>
+                    <Loader inverted content='Running Your Image Through Our Network' />
+                </Dimmer>
+
+                <Button animated onClick={handleClick}>
+                    <Button.Content>
+                        <input type="file" id="car-img" name="car-img" accept="image/*" placeholder="Upload Image" style={{display:'none'}} onChange={event=>handleImageUpload(event)}/>
+                        <Button.Content>Upload Image <Icon name='upload right'/></Button.Content>
+                    </Button.Content>
+                </Button>
+                <p>
+                    Please upload the image of your query car.
+                </p>
+                <p>
+                    Dankeschon!
+                </p>
+                            
             </Segment>
-            <Button animated onClick={handleClick}>
-                <Button.Content>
-                    <input type="file" id="car-img" name="car-img" accept="image/*" placeholder="Upload Image" style={{display:'none'}} onChange={event=>handleImageUpload(event)}/>
-                    <Button.Content>Upload Image <Icon name='upload right'/></Button.Content>
-                </Button.Content>
-            </Button>
-            <p>
-                Please upload the image of your query car.
-            </p>
-            <p>
-                Dankeschon!
-            </p>   
+                   
         </div>
     )
 }
