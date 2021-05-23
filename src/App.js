@@ -8,6 +8,7 @@ import CarGallery from './components/CarGallery/CarGallery';
 import MenuBar from './components/MenuBar/MenuBar';
 import ModalComponent from './components/Modal/Modal';
 import UploadImage from './components/UploadImage/UploadImage';
+import jsonfile from './response.json';
 
 function App() {
   const [imagesList,setImagesList] = useState([]);
@@ -29,7 +30,7 @@ function App() {
         <UploadImage handleImageSet = {handleImageSet} />
       </Route>
       <Route exact path="/locatedCar"> 
-        <CarGallery imagesList={imagesList} handlelocationParam={handlelocationParam}/>
+        <CarGallery imagesList={jsonfile} handlelocationParam={handlelocationParam}/>
       </Route>
       <Route exact path="/locationOnMap">
         <ModalComponent locationParam={locationParam}/>

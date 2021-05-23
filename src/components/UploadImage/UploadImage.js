@@ -7,36 +7,41 @@ import "./UploadImage.css";
 
 export default function UploadImage(props) {
   const [activeLoader, setActiveLoader] = useState(false);
+  const [queryImage,setQueryImage]= useState("");
   const history = useHistory();
   console.log(props);
 
   const handleClick = () => {
+    setQueryImage("");
     document.getElementById("car-img").click();
-    /* setTimeout(()=>{   
-            setActiveLoader(false);
-            history.push('/checking');
-        },4000); */
   };
 
   const toBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function () {
-      setActiveLoader(true);
-      const images = await axios.post("http://localhost:8000/api/query/", {
-        query: reader.result,
-      });
-      props.handleImageSet(images.data);
-      history.push("/locatedCar");
-      setActiveLoader(false);
+      setQueryImage(reader.result);
+      
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
   };
+
+
+  const handleProceedImage = async ()=> {
+    setActiveLoader(true);
+    const images = await axios.post("http://localhost:8000/api/query/", {
+      query: queryImage,
+    });
+    props.handleImageSet(images.data);
+    history.push("/locatedCar");
+    setActiveLoader(false);
+  }
+
+
   const handleImageUpload = async (event) => {
     event.preventDefault();
-    setActiveLoader(true);
     const file = event.target.files[0];
     toBase64(file);
   };
@@ -47,8 +52,8 @@ export default function UploadImage(props) {
         <Dimmer active={activeLoader} inverted>
           <Loader inverted content="Running Your Image Through Our Network" />
         </Dimmer>
-
-        <Button animated onClick={handleClick}>
+        {queryImage ?<img src={queryImage} alt="queryImage" width="300" height="300"/>:null } 
+        {(!queryImage)? <Button animated onClick={handleClick}>
           <Button.Content>
             <input
               type="file"
@@ -63,7 +68,19 @@ export default function UploadImage(props) {
               Upload Image <Icon name="upload right" />
             </Button.Content>
           </Button.Content>
-        </Button>
+        </Button>:null}
+        <div>
+          {queryImage? 
+            <>
+              <Button attached="left" onClick={handleProceedImage}>
+                Proceed <Icon name="right arrow" />
+              </Button> 
+              <Button attached="right" onClick={()=>setQueryImage("")}>
+                Cancel
+              </Button>
+            </>
+              :null}
+        </div>
         <p>Please upload the image of your query car.</p>
         <p>Dankeschon!</p>
       </Segment>

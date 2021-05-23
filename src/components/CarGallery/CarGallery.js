@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Gallery from "react-photo-gallery";
 
+import './CarGallery.css';
 import CamLocations from '../../cam_locations.json';
+import { photos } from "./photos";
+import ImageWithCaption from "./ImageWithGallery";
 
 function CarGallery({ imagesList,handlelocationParam }) {
   const [receiveImagesList, setReceiveImagesList] = useState({});
   const history = useHistory();
+  const [photoGallery,setPhotoGallery] = useState([]);
+
+  const imageRenderer = ({ index, left, top, key, photo }) => (
+    <ImageWithCaption
+      key={key}
+      margin={"2px"}
+      index={index}
+      photo={photo}
+      left={left}
+      top={top}
+    />
+  );
 
   useEffect(() => {
     console.log(imagesList);
@@ -13,6 +29,8 @@ function CarGallery({ imagesList,handlelocationParam }) {
       history.push("/");
     }
     setReceiveImagesList(imagesList);
+    console.log(photos(imagesList));
+    setPhotoGallery(photos(imagesList));
   }, [receiveImagesList, imagesList, history]);
 
   const handleImageClick = (imageName)=>{
@@ -33,15 +51,8 @@ function CarGallery({ imagesList,handlelocationParam }) {
   return (
     <div style={{ height: "100vh", width: "100%" }} className="container">
       {receiveImagesList &&
-        receiveImagesList.images &&
-        Object.keys(receiveImagesList.images).map((img) => (
-          <img
-            src={`data:image/jpg;base64,${receiveImagesList.images[img]}`}
-            key={receiveImagesList.names[img]}
-            alt={receiveImagesList.names[img]}
-            onClick={()=>handleImageClick(receiveImagesList.names[img])}
-          />
-        ))}
+        receiveImagesList.images &&(
+        <Gallery photos={photoGallery} renderImage={imageRenderer}></Gallery>)}
     </div>
   );
 }
