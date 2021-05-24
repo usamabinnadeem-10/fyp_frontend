@@ -4,6 +4,7 @@ import { Button, Dimmer, Icon, Loader, Message, Segment } from "semantic-ui-reac
 import axios from "axios";
 
 import "./UploadImage.css";
+import Logo from '../../assets/logo.png';
 
 export default function UploadImage(props) {
   const [activeLoader, setActiveLoader] = useState(false);
@@ -63,51 +64,64 @@ export default function UploadImage(props) {
   };
 
   return (
-    <div className="row upload-image-page">
-      <Segment basic className="upload-image-page">
-        <Dimmer active={activeLoader} inverted>
-          <Loader inverted content="Running Your Image Through Our Network" />
-        </Dimmer>
-        {queryImage ?<img src={queryImage} alt="queryImage" width="300" height="300"/>:null } 
-        {(!queryImage)? <Button animated onClick={handleClick}>
-          <Button.Content>
-            <input
-              type="file"
-              id="car-img"
-              name="car-img"
-              accept="image/*"
-              placeholder="Upload Image"
-              style={{ display: "none" }}
-              onChange={(event) => handleImageUpload(event)}
-            />
-            <Button.Content>
-              Upload Image <Icon name="upload right" />
-            </Button.Content>
-          </Button.Content>
-        </Button>:null}
-        <div>
-          {queryImage? 
-            <>
-              <Button attached="left" onClick={handleProceedImage}>
-                Proceed <Icon name="right arrow" />
-              </Button> 
-              <Button attached="right" onClick={()=>{setQueryImage("");props.handleQueryImage("");}}>
-                Cancel
-              </Button>
-            </>
-              :null}
+    <div className="row top_row">
+      <div className="col-6">
+        <div className="upload-image-page">
+          <img src={Logo} alt="Logo" height="200"/>
+          <p class="logoHeading">Vehicle Re-identification FYP Web Portal</p>
         </div>
-        <p>Please upload the image of your query car.</p>
-        <p>Dankeschon!</p>
-        {  fileSizeError && 
-        <Message negative>
-          <Message.Header>File Size Must be Less Than 2MB</Message.Header>
-        </Message>}
-        {  fileTypeError && 
-        <Message negative>
-          <Message.Header>File Type Must be Image</Message.Header>
-        </Message>}
-      </Segment>
+      </div>
+      <div className="col-6">
+          <div className="row upload-image-page">
+          <Segment basic className="upload-image-page">
+            <Dimmer active={activeLoader} inverted>
+              <Loader inverted content="Running Your Image Through Our Network" />
+            </Dimmer>
+            <p className="description">This web portal hosts our Vehicle Re-identification deep CNN model.
+             Once you upload query car image, our model will search it in our 
+             database and display top 10 matches along with their location on Google Maps.</p>
+            {queryImage ?<img src={queryImage} alt="queryImage" width="300" height="300"/>:null } 
+            {(!queryImage)? <Button animated onClick={handleClick}>
+              <Button.Content>
+                <input
+                  type="file"
+                  id="car-img"
+                  name="car-img"
+                  accept="image/*"
+                  placeholder="Upload Image"
+                  style={{ display: "none" }}
+                  onChange={(event) => handleImageUpload(event)}
+                />
+                <Button.Content>
+                  Upload Image <Icon name="upload right" />
+                </Button.Content>
+              </Button.Content>
+            </Button>:null}
+            <div>
+              {queryImage? 
+                <>
+                  <Button attached="left" onClick={handleProceedImage}>
+                    Proceed <Icon name="right arrow" />
+                  </Button> 
+                  <Button attached="right" onClick={()=>{setQueryImage("");props.handleQueryImage("");}}>
+                    Cancel
+                  </Button>
+                </>
+                  :null}
+            </div>
+            <p>Please upload the image of your query car.</p>
+            <p>Dankeschon!</p>
+            {  fileSizeError && 
+            <Message negative>
+              <Message.Header>File Size Must be Less Than 2MB</Message.Header>
+            </Message>}
+            {  fileTypeError && 
+            <Message negative>
+              <Message.Header>File Type Must be Image</Message.Header>
+            </Message>}
+          </Segment>
+        </div>
+      </div>
     </div>
   );
 }
