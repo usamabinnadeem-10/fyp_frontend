@@ -8,6 +8,7 @@ import CarGallery from './components/CarGallery/CarGallery';
 import MenuBar from './components/MenuBar/MenuBar';
 import ModalComponent from './components/Modal/Modal';
 import UploadImage from './components/UploadImage/UploadImage';
+//import jsonfile from './response.json';
 
 function App() {
   const [imagesList,setImagesList] = useState([]);

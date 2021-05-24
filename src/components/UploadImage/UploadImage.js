@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
+import { Button, Dimmer, Icon, Loader, Message, Segment } from "semantic-ui-react";
 import axios from "axios";
 
 import "./UploadImage.css";
@@ -8,10 +8,12 @@ import "./UploadImage.css";
 export default function UploadImage(props) {
   const [activeLoader, setActiveLoader] = useState(false);
   const [queryImage,setQueryImage]= useState("");
+  const [fileSizeError,setFileSizeError] = useState(false);
   const history = useHistory();
   console.log(props);
 
   const handleClick = () => {
+    setFileSizeError(false);
     setQueryImage("");
     document.getElementById("car-img").click();
   };
@@ -43,7 +45,14 @@ export default function UploadImage(props) {
   const handleImageUpload = async (event) => {
     event.preventDefault();
     const file = event.target.files[0];
-    toBase64(file);
+    console.log(file.size);
+    if(file.size < 2086803){
+      toBase64(file);
+    }
+    else {
+      setFileSizeError(true);
+    console.log("file size is greater than 2mb");
+    }
   };
 
   return (
@@ -83,6 +92,10 @@ export default function UploadImage(props) {
         </div>
         <p>Please upload the image of your query car.</p>
         <p>Dankeschon!</p>
+        {  fileSizeError && 
+        <Message negative>
+          <Message.Header>File Size Must be Less Than 2MB</Message.Header>
+        </Message>}
       </Segment>
     </div>
   );
