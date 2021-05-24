@@ -28,7 +28,8 @@ function CarGallery({ imagesList, queryImage }) {
       </>
     );
   };
-	@@ -29,7 +33,13 @@ function CarGallery({ imagesList,queryImage }) {
+
+  const getMapOptions = (maps) => {
     return {
       mapTypeControl: true,
       streetViewControl: true,
@@ -42,7 +43,11 @@ function CarGallery({ imagesList, queryImage }) {
     };
   };
 
-	@@ -41,350 +51,512 @@ function CarGallery({ imagesList,queryImage }) {
+  useEffect(() => {
+    console.log(imagesList);
+    if (imagesList && !imagesList.names) {
+      history.push("/");
+    }
     setReceiveImagesList(imagesList);
   }, [receiveImagesList, imagesList, history]);
 
