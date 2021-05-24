@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Dimmer, Icon, Loader, Message, Segment } from "semantic-ui-react";
 import axios from "axios";
@@ -17,6 +17,7 @@ export default function UploadImage(props) {
     setFileSizeError(false);
     setFileTypeError(false);
     setQueryImage("");
+    props.handleQueryImage("");
     document.getElementById("car-img").click();
   };
 
@@ -25,7 +26,7 @@ export default function UploadImage(props) {
     reader.readAsDataURL(file);
     reader.onload = async function () {
       setQueryImage(reader.result);
-      
+      props.handleQueryImage(reader.result);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -90,7 +91,7 @@ export default function UploadImage(props) {
               <Button attached="left" onClick={handleProceedImage}>
                 Proceed <Icon name="right arrow" />
               </Button> 
-              <Button attached="right" onClick={()=>setQueryImage("")}>
+              <Button attached="right" onClick={()=>{setQueryImage("");props.handleQueryImage("");}}>
                 Cancel
               </Button>
             </>

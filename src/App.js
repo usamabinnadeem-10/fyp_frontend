@@ -6,20 +6,19 @@ import {
 
 import CarGallery from './components/CarGallery/CarGallery';
 import MenuBar from './components/MenuBar/MenuBar';
-import ModalComponent from './components/Modal/Modal';
 import UploadImage from './components/UploadImage/UploadImage';
 //import jsonfile from './response.json';
 
 function App() {
   const [imagesList,setImagesList] = useState([]);
-  const [locationParam,setLocationParam] = useState({});
-
+  const [queryImage,setQueryImage] = useState("");
   const handleImageSet= (imageArray)=>{
     setImagesList(imageArray);
   }
 
-  const handlelocationParam = (params)=>{
-    setLocationParam(params);
+  const handleQueryImage = (file)=>{
+    console.log(file);
+    setQueryImage(file);
   }
 
 
@@ -27,13 +26,10 @@ function App() {
     <Router>
       <MenuBar/>
       <Route exact path="/"> 
-        <UploadImage handleImageSet = {handleImageSet} />
+        <UploadImage handleImageSet = {handleImageSet} handleQueryImage={handleQueryImage}/>
       </Route>
       <Route exact path="/locatedCar"> 
-        <CarGallery imagesList={imagesList} handlelocationParam={handlelocationParam}/>
-      </Route>
-      <Route exact path="/locationOnMap">
-        <ModalComponent locationParam={locationParam}/>
+        <CarGallery imagesList={imagesList} queryImage={queryImage}/>
       </Route>
     </Router>
   );

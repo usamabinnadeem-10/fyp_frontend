@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import GoogleMapReact from 'google-map-react';
-import { Card } from 'semantic-ui-react'
+import { Card ,Image} from 'semantic-ui-react'
 
-
-import CamLocations from '../../cam_locations.json';
+import CamLocations from '../../cam_locations.json'
 import './CarGallery.css';
 
-function CarGallery({ imagesList,handlelocationParam }) {
+function CarGallery({ imagesList,queryImage }) {
   const [receiveImagesList, setReceiveImagesList] = useState({});
   const [direction,setDirections] = useState([]);
   const history = useHistory();
 
+  useEffect(()=>{
+    console.log(queryImage);
+  },[queryImage])
 
   const Marker = (props) => {
     const { name } = props;
@@ -53,26 +55,34 @@ function CarGallery({ imagesList,handlelocationParam }) {
     console.log(direction);
   }
 
-
+  
   return (
     <div style={{ height: "100vh", width: "100%" }} className="container">
+      {queryImage &&
+        <Card style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",margin:"auto"}}>
+          <Image src={queryImage} wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>Your Query Image</Card.Header>
+          </Card.Content>
+        </Card>
+      }
       {receiveImagesList &&
         receiveImagesList.images && (
           <>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 1</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[0]}`}
                         key={receiveImagesList.names[0]}
                         alt={receiveImagesList.names[0]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[0])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10  && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -90,20 +100,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 2</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[1]}`}
                         key={receiveImagesList.names[1]}
                         alt={receiveImagesList.names[1]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[1])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -121,20 +131,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 3</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[2]}`}
                         key={receiveImagesList.names[2]}
                         alt={receiveImagesList.names[2]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[2])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -152,20 +162,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 4</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[3]}`}
                         key={receiveImagesList.names[3]}
                         alt={receiveImagesList.names[3]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[3])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -183,20 +193,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 5</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[4]}`}
                         key={receiveImagesList.names[4]}
                         alt={receiveImagesList.names[4]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[4])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -214,20 +224,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 6</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[5]}`}
                         key={receiveImagesList.names[5]}
                         alt={receiveImagesList.names[5]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[5])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -245,20 +255,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 7</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[6]}`}
                         key={receiveImagesList.names[6]}
                         alt={receiveImagesList.names[6]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[6])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -276,20 +286,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 8</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[7]}`}
                         key={receiveImagesList.names[7]}
                         alt={receiveImagesList.names[7]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[7])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -307,20 +317,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 9</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[8]}`}
                         key={receiveImagesList.names[8]}
                         alt={receiveImagesList.names[8]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[8])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
@@ -338,20 +348,20 @@ function CarGallery({ imagesList,handlelocationParam }) {
                   </div>
                 </div>
             </Card>
-            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+            <Card fluid style={{ padding: 10, borderRadius:10,boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                 <Card.Content><Card.Header>Rank 10</Card.Header></Card.Content>
                 <div className="row">
-                  <div className="col-12 col-md-3">
+                  <div className="col-12 col-md-5">
                       <img
                         src={`data:image/jpg;base64,${receiveImagesList.images[9]}`}
                         key={receiveImagesList.names[9]}
                         alt={receiveImagesList.names[9]}
                         onLoad={()=>handleImageClick(receiveImagesList.names[9])}
-                        width="90%"
+                        width="80%"
                         height="200"
                       />
                   </div>
-                  <div className="col-12 col-md-9" style={{height:200}}>
+                  <div className="col-12 col-md-7" style={{height:200}}>
                     {direction.length === 10 && 
                     <GoogleMapReact
                       bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
