@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import GoogleMapReact from 'google-map-react';
+import { Card } from 'semantic-ui-react'
+
 
 import CamLocations from '../../cam_locations.json';
 import './CarGallery.css';
@@ -15,7 +17,7 @@ function CarGallery({ imagesList,handlelocationParam }) {
     const { name } = props;
     return (
       <>
-        <div class='pin'><p>{name}</p></div>
+        <div class='pin'><p style={{marginLeft: name === 10 ? 0 : 10}}>{name}</p></div>
         <div class='pulse'></div>
       </>
     );
@@ -56,46 +58,318 @@ function CarGallery({ imagesList,handlelocationParam }) {
     <div style={{ height: "100vh", width: "100%" }} className="container">
       {receiveImagesList &&
         receiveImagesList.images && (
-          <div className="row">
-            <div className="col-6">
-              <div className="row">
-                {
-                  Object.keys(receiveImagesList.images).map((img,index) => (
-                    <div className="col-12 col-md-5 mt-2">
-                      <p>{`Rank ${index}`}</p>
+          <>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 1</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
                       <img
-                        src={`data:image/jpg;base64,${receiveImagesList.images[img]}`}
-                        key={receiveImagesList.names[img]}
-                        alt={receiveImagesList.names[img]}
-                        onLoad={()=>handleImageClick(receiveImagesList.names[img])}
-                        width="200"
+                        src={`data:image/jpg;base64,${receiveImagesList.images[0]}`}
+                        key={receiveImagesList.names[0]}
+                        alt={receiveImagesList.names[0]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[0])}
+                        width="90%"
                         height="200"
                       />
                   </div>
-                  ))
-                }
-              </div>
-            </div>
-            <div className="col-6 mt-5" style={{height:500}}>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
-                defaultCenter={{lat:33.647200,lng:72.990114}}
-                defaultZoom={14}
-                options={getMapOptions}
-              >
-                  {
-                    direction.length >0 && direction.map((dir,index)=>(
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10  && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[0].latitude,lng:direction[0].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
                       <Marker
-                        lat={dir.latitude}
-                        lng={dir.longitude}
-                        name={index}
+                        lat={direction[0].latitude}
+                        lng={direction[0].longitude}
+                        name={1}
                         color="blue"
                       />
-                    ))
-                  } 
-              </GoogleMapReact>
-            </div>
-          </div>
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 2</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[1]}`}
+                        key={receiveImagesList.names[1]}
+                        alt={receiveImagesList.names[1]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[1])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[1].latitude,lng:direction[1].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[1].latitude}
+                        lng={direction[1].longitude}
+                        name={2}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 3</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[2]}`}
+                        key={receiveImagesList.names[2]}
+                        alt={receiveImagesList.names[2]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[2])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[2].latitude,lng:direction[2].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[2].latitude}
+                        lng={direction[2].longitude}
+                        name={3}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 4</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[3]}`}
+                        key={receiveImagesList.names[3]}
+                        alt={receiveImagesList.names[3]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[3])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[3].latitude,lng:direction[3].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[3].latitude}
+                        lng={direction[3].longitude}
+                        name={4}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 5</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[4]}`}
+                        key={receiveImagesList.names[4]}
+                        alt={receiveImagesList.names[4]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[4])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[4].latitude,lng:direction[4].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[4].latitude}
+                        lng={direction[4].longitude}
+                        name={5}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 6</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[5]}`}
+                        key={receiveImagesList.names[5]}
+                        alt={receiveImagesList.names[5]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[5])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[5].latitude,lng:direction[5].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[5].latitude}
+                        lng={direction[5].longitude}
+                        name={6}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 7</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[6]}`}
+                        key={receiveImagesList.names[6]}
+                        alt={receiveImagesList.names[6]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[6])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[6].latitude,lng:direction[6].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[6].latitude}
+                        lng={direction[6].longitude}
+                        name={7}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 8</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[7]}`}
+                        key={receiveImagesList.names[7]}
+                        alt={receiveImagesList.names[7]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[7])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[7].latitude,lng:direction[7].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[7].latitude}
+                        lng={direction[7].longitude}
+                        name={8}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 9</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[8]}`}
+                        key={receiveImagesList.names[8]}
+                        alt={receiveImagesList.names[8]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[8])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[8].latitude,lng:direction[8].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[8].latitude}
+                        lng={direction[8].longitude}
+                        name={9}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+            <Card fluid style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                <Card.Content><Card.Header>Rank 10</Card.Header></Card.Content>
+                <div className="row">
+                  <div className="col-12 col-md-3">
+                      <img
+                        src={`data:image/jpg;base64,${receiveImagesList.images[9]}`}
+                        key={receiveImagesList.names[9]}
+                        alt={receiveImagesList.names[9]}
+                        onLoad={()=>handleImageClick(receiveImagesList.names[9])}
+                        width="90%"
+                        height="200"
+                      />
+                  </div>
+                  <div className="col-12 col-md-9" style={{height:200}}>
+                    {direction.length === 10 && 
+                    <GoogleMapReact
+                      bootstrapURLKeys={{ key: "AIzaSyCch-zHeJGA2YVaByPKBPDTMYTCLIY3TEM" }}
+                      defaultCenter={{lat:direction[9].latitude,lng:direction[9].longitude}}
+                      defaultZoom={18}
+                      options={getMapOptions}
+                    >
+                      <Marker
+                        lat={direction[9].latitude}
+                        lng={direction[9].longitude}
+                        name={10}
+                        color="blue"
+                      />
+                    </GoogleMapReact>}
+                  </div>
+                </div>
+            </Card>
+          </>
         )}
     </div>
   );
